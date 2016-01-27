@@ -1,0 +1,11 @@
+name: Suite
+parallel: classes
+tests:
+  - name: TestDebug
+    verbose: 2
+    parallel: classes
+    parameters: { APP_ACTIVITY: .ui.LauncherUI, appname: weixin-android.apk, PLATFORM_VERSION: shadouxing, PLATFORM_NAME: android, APP_PACKAGE: com.tencent.mm }
+    classes:
+      - com.mobile.app.utils.ActionApp
+      - com.mobile.testcase.login.TestCaseLogin
+

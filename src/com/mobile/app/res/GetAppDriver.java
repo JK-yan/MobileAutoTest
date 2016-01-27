@@ -10,17 +10,17 @@ import org.testng.annotations.Parameters;
  * @获取所需driver
  */
 public class GetAppDriver {
-	private static File filepath;
-
+	public static File filepath;
+   //public static String appname= "weixin639android700.apk";
 	public static  File getAppDriver(String appname) throws IOException{
 		try {
 			//获取当前工程所在路径
-			File path= new File(System.getProperty("user.dir"));
+			File classpathRoot= new File(System.getProperty("user.dir"));
 			//获取driver所在文件夹路径
-			File appdir= new File(path,"res//android");
+			File appDir= new File(classpathRoot,"src/res/android");
 			//获取所需APP
-			File app= new File(appdir,appname);
-			 filepath=app.getAbsoluteFile();
+			File app= new File(appDir,appname);
+	      filepath=app.getAbsoluteFile();
 			return filepath;
 		} catch (Exception e) {
 			// TODO: handle exception

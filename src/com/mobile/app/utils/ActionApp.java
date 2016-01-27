@@ -1,12 +1,24 @@
 package com.mobile.app.utils;
 
 
+import org.testng.annotations.Test;
+import org.testng.AssertJUnit;
+import java.io.File;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
-
+import org.apache.http.util.Asserts;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
 
 import com.mobile.app.res.GetAppDriver;
+import com.mobile.app.utils.FactoryServer.SimpleFactory;
+
+//import com.mobile.app.res.GetAppDriver;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
@@ -14,32 +26,57 @@ import io.appium.java_client.remote.MobileCapabilityType;
 
 public class ActionApp {
 public AndroidDriver<MobileElement> driver;
-	public void actionApp() throws Exception {
-		
+@BeforeTest
+@Parameters({"PLATFORM_VERSION","PLATFORM_NAME","appname","APP_PACKAGE","APP_ACTIVITY",})
+	public void actionApp(String PLATFORM_VERSION,String PLATFORM_NAME,String appname,
+			String APP_PACKAGE,String APP_ACTIVITY) throws Exception {
+	
+	   
+	    
+	   
+	   
+	AppiumServerBase base= SimpleFactory.createAppiumServerBase(PLATFORM_VERSION,PLATFORM_NAME,appname,APP_PACKAGE,APP_ACTIVITY);
 		 DesiredCapabilities capabilities = new DesiredCapabilities();
-	     capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, "");         
-	     capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "android");
-	     capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, "selendroid");     
+	     capabilities.setCapability(MobileCapabilityType.BROWSER_NAME, base.getBROWSER_NAME());         
+	     capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, "TLGKE15823000755");
+	     capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION,base.getPLATFORM_VERSION());     
 	     //MX4的驱动器名字使用adb devices -l命令在CMD中获得
-	     capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME,"750BBL622R4G");	     
+	     capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME,base.getPLATFORM_NAME());	     
 	     //手机操作系统android版本
 	    // capabilities.setCapability("deviceVersion","4.4");    
-	     capabilities.setCapability(MobileCapabilityType.APP, GetAppDriver.getAppDriver("appname")); 	     
+	     capabilities.setCapability(MobileCapabilityType.APP,base.getAPPFILEPATH()); 	     
 	     //要测试应用的包名
-	     capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, "com.ddt.pub");             
-	     capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, "org.zywx.wbpalmstar.engine.EBrowserActivity"); 	     
-	     capabilities.setCapability("sessionOverride", true);  	     
+	     capabilities.setCapability(MobileCapabilityType.APP_PACKAGE, base.getAPP_PACKAGE()); 	
+	     capabilities.setCapability(MobileCapabilityType.APP_ACTIVITY, base.getAPP_ACTIVITY());             
+	         
+	   // capabilities.setCapability(MobileCapabilityType., true);  	
+	     System.out.println(base.getPLATFORM_VERSION());
+	     System.out.println(base.getPLATFORM_NAME());
+	     System.out.println(base.getAPPFILEPATH());
+	     System.out.println(base.getAPP_ACTIVITY());
+	     System.out.println(base.getAPP_PACKAGE());
 	     //退出后，再次进入不需要重新安装
 	     capabilities.setCapability("noReset", true);       	    
 	     //appium想要支持中文输入，需要将unicodeKeyboard、resetKeyboard设置为true
-	     capabilities.setCapability("unicodeKeyboard", "True");
-	     capabilities.setCapability("resetKeyboard", "True");         
+	     capabilities.setCapability("unicodeKeyboard", true);
+	     capabilities.setCapability("resetKeyboard", true);         
 	     driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);  	  
 	     System.out.println("应用连接完成");    		     
-	 
+	     driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);  
 		
 		
 		
 		
+	}
+	@AfterTest
+	public void TestDown() throws Exception{
+		driver.quit();
+	}
+	@Test
+	public void test(){
+		
+		MobileElement el=driver.findElementByName("登录");
+		AssertJUnit.assertEquals(el.getText(),"登录");
+		el.click();
 	}
 }
