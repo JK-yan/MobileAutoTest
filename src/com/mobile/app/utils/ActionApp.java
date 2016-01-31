@@ -17,6 +17,7 @@ import org.testng.annotations.Test;
 
 import com.mobile.app.res.GetAppDriver;
 import com.mobile.app.utils.FactoryServer.SimpleFactory;
+import com.mobile.testcase.login.LoginUtil;
 
 //import com.mobile.app.res.GetAppDriver;
 
@@ -62,7 +63,7 @@ public AndroidDriver<MobileElement> driver;
 	     capabilities.setCapability("resetKeyboard", true);         
 	     driver = new AndroidDriver<MobileElement>(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);  	  
 	     System.out.println("应用连接完成");    		     
-	     driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);  
+	  //   driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);  
 		
 		
 		
@@ -72,11 +73,6 @@ public AndroidDriver<MobileElement> driver;
 	public void TestDown() throws Exception{
 		driver.quit();
 	}
-	@Test
-	public void test(){
-		
-		MobileElement el=driver.findElementByName("登录");
-		AssertJUnit.assertEquals(el.getText(),"登录");
-		el.click();
+
 	}
-}
+	
