@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="classes">
+  <listeners>
+    <listener class-name="com.mobile.app.utils.ActionApp" />
+    <listener class-name="com.mobile.testcase.login.TestCaseLogin" />
+  </listeners>
   <test verbose="2" preserve-order="true" name="TestDebug">
     <parameter name="PLATFORM_VERSION" value="shadouxing" />
     <parameter name="PLATFORM_NAME" value="android" />
-    <parameter name="appname" value="weixin-android.apk" />
-    <parameter name="APP_PACKAGE" value="com.tencent.mm" />
-    <parameter name="APP_ACTIVITY" value=".ui.LauncherUI" />
+    <parameter name="appname" value="zhihu-android.apk" />
+    <parameter name="APP_PACKAGE" value="com.zhihu.android" />
+    <parameter name="APP_ACTIVITY" value="com.zhihu.android.ui.activity.GuideActivity" />
    
 
  

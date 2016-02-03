@@ -1,32 +1,22 @@
 package com.mobile.app.utils;
 
 
-import org.testng.annotations.Test;
-import org.testng.AssertJUnit;
-import java.io.File;
-import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.http.util.Asserts;
+
+
+import java.net.URL;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
-
-import com.mobile.app.res.GetAppDriver;
 import com.mobile.app.utils.FactoryServer.SimpleFactory;
-import com.mobile.testcase.login.LoginUtil;
-
-//import com.mobile.app.res.GetAppDriver;
-
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 
 public class ActionApp {
-public AndroidDriver<MobileElement> driver;
+public static AndroidDriver<MobileElement> driver;
+
 @BeforeTest
 @Parameters({"PLATFORM_VERSION","PLATFORM_NAME","appname","APP_PACKAGE","APP_ACTIVITY",})
 	public void actionApp(String PLATFORM_VERSION,String PLATFORM_NAME,String appname,
@@ -73,6 +63,8 @@ public AndroidDriver<MobileElement> driver;
 	public void TestDown() throws Exception{
 		driver.quit();
 	}
-
+	public static AndroidDriver<MobileElement> getDriver(){
+		return driver;
+	}
 	}
 	
